@@ -37,6 +37,7 @@ public class BallScript : MonoBehaviour
         transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
         //2
         LeanTween.scale(gameObject, new Vector3(1.0f, 1.0f), 1.0f).setEase(animationCurve);
+        gameObject.LeanColor(Color.yellow, 0.5f).setEasePunch();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
