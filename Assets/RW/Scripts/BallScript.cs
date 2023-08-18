@@ -9,6 +9,8 @@ public class BallScript : MonoBehaviour
     private Vector2 direction;
     private Rigidbody2D ballRigidbody;
 
+    public AnimationCurve animationCurve;
+
     private void Awake()
     {
         ballRigidbody = GetComponent<Rigidbody2D>();
@@ -34,7 +36,7 @@ public class BallScript : MonoBehaviour
         LeanTween.cancel(gameObject);
         transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
         //2
-        LeanTween.scale(gameObject, new Vector3(1.0f, 1.0f), 1.0f).setEase(LeanTweenType.punch);
+        LeanTween.scale(gameObject, new Vector3(1.0f, 1.0f), 1.0f).setEase(animationCurve);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
