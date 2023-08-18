@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour
 
     private int gameScore = 0;
 
+    public GameObject Background;
+    public float backgroundShakeRate = 2.0f;
+
     private void Awake()
     {
         if (PrivateInstance != null && PrivateInstance != this)
@@ -31,15 +34,23 @@ public class GameManager : MonoBehaviour
         gameScore += value;
         scoreDisplay.text = gameScore.ToString();
 
-        // 1
         LeanTween.cancel(scoreDisplay.gameObject);
         scoreDisplay.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
         scoreDisplay.transform.localScale = Vector3.one;
 
-        // 2
         LeanTween.rotateZ(scoreDisplay.gameObject, 15.0f, 0.5f).setEasePunch();
         LeanTween.scaleX(scoreDisplay.gameObject, 1.5f, 0.5f).setEasePunch();
+
+        // 1
+        LeanTween.move(Background.gameObject, Random.insideUnitCircle * backgroundShakeRate, 0.5f).setEasePunch();
+
+        // 2
+        Background.LeanColor(Color.red, 0.3f).setEasePunch().setOnComplete(() =>
+        {
+            Background.GetComponent<SpriteRenderer>().color = new Color(0.38f, 0.38f, 0.38f);
+        });
     }
+
 
     public void ResetGame()
     {
